@@ -112,7 +112,7 @@
 </head>
 <body class="grid-bg text-tiza font-sans min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-bogota selection:text-asfalto">
 
-    <!-- Cabeceira / Barra Superior de Controlo da Campanha (Fijado como relative en lugar de sticky para desplazarse con el scroll) -->
+    <!-- Cabeceira / Barra Superior de Controlo da Campanha -->
     <header class="border-b border-white/10 bg-asfalto/95 backdrop-blur relative px-4 py-3 sm:px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
@@ -122,6 +122,7 @@
                 <div>
                     <h1 class="text-lg sm:text-xl font-spartan font-extrabold tracking-tight">EXPOSICIÓN DIGITAL: LA PASIÓN NO ES ODIO</h1>
                     <p class="text-xs text-white/60 font-medium">Etnografía del Clásico Santa Fe vs Millonarios FC • Visualización Oficial del Proyecto</p>
+                    <p class="text-[11px] text-bogota/90 font-mono mt-0.5 tracking-wide"><i class="fa-solid fa-user-graduate mr-1"></i>Estudiante: Sebastian Correa • <i class="fa-solid fa-book mr-1"></i>Asignatura: Ciudadanía Plural</p>
                 </div>
             </div>
             
@@ -148,7 +149,7 @@
         <span id="toast-text" class="text-xs font-semibold">¡Publicación guardada en tu colección!</span>
     </div>
 
-    <!-- Contenedor Principal Centrado (Sin columna derecha) -->
+    <!-- Contenedor Principal Centrado -->
     <main class="max-w-lg mx-auto w-full p-4 sm:p-6 lg:py-10 flex-grow flex flex-col items-center justify-center gap-6">
         
         <!-- SIMULADOR DE IPHONE CON INSTAGRAM FEED (PROTAGONISTA ÚNICO) -->
@@ -163,7 +164,7 @@
             <!-- Pantalla del Celular -->
             <div class="bg-black rounded-[45px] overflow-hidden aspect-[9/19] relative flex flex-col justify-between select-none">
                 
-                <!-- 1. BARRA DE ESTADO DE IOS (Idéntica a la imagen: 23:33, señal, wifi, batería amarilla) -->
+                <!-- 1. BARRA DE ESTADO DE IOS -->
                 <div class="pt-3 pb-1 px-6 flex justify-between items-center text-white text-[11px] font-semibold tracking-tight z-50 bg-black">
                     <span class="font-sans">23:33</span>
                     <div class="flex items-center gap-1.5">
@@ -176,7 +177,7 @@
                         </div>
                         <!-- Wi-Fi -->
                         <i class="fa-solid fa-wifi text-[10px]"></i>
-                        <!-- Batería Amarilla (Modo de bajo consumo / Carga baja) -->
+                        <!-- Batería Amarilla -->
                         <div class="w-5 h-2.5 border border-white/50 rounded-[3px] p-[1px] flex items-center relative">
                             <div class="h-full w-[35%] bg-yellow-400 rounded-[1px]"></div>
                             <span class="absolute -right-[2.5px] top-[2.5px] w-[1.5px] h-[3.5px] bg-white/50 rounded-r-sm"></span>
@@ -184,21 +185,36 @@
                     </div>
                 </div>
 
-                <!-- 2. CABECERA DE LA APP (Instagram: Cuenta, Verificado, Audio de fondo, Opciones) -->
+                <!-- 2. CABECERA DE LA APP - DISEÑO DE PUBLICACIÓN COMPARTIDA (Con foto de perfil personalizada para sebasstn_c) -->
                 <div class="bg-black pt-1 pb-2.5 px-4 flex items-center justify-between text-xs z-30">
-                    <div class="flex items-center gap-2.5">
-                        <!-- Foto de Perfil con Anillo de Historia Activa -->
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 p-[1.5px]">
-                            <div class="w-full h-full bg-black rounded-full flex items-center justify-center border border-black overflow-hidden">
-                                <div class="w-full h-full bg-gradient-to-br from-santafe to-millos flex items-center justify-center">
-                                    <i class="fa-solid fa-shield-halved text-xs text-white"></i>
+                    <div class="flex items-center gap-3.5">
+                        <!-- Foto de Perfil Compartida (Solapamiento real de Instagram) -->
+                        <div class="relative w-10 h-8 flex items-center">
+                            <!-- Primer Avatar: bogota_coexiste -->
+                            <div class="absolute left-0 w-6 h-6 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 p-[1px] z-20 animate-pulse">
+                                <div class="w-full h-full bg-black rounded-full flex items-center justify-center overflow-hidden">
+                                    <div class="w-full h-full bg-gradient-to-br from-santafe to-millos flex items-center justify-center">
+                                        <i class="fa-solid fa-shield-halved text-[8px] text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Segundo Avatar: sebasstn_c (Con la imagen de avatar "SC" en gradiente deportivo) -->
+                            <div class="absolute left-3.5 w-6 h-6 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 p-[1px] z-10">
+                                <div class="w-full h-full bg-black rounded-full flex items-center justify-center overflow-hidden">
+                                    <img src="https://api.dicebear.com/7.x/initials/svg?seed=Sebastian%20Correa&backgroundColor=0f52ba,d21422&backgroundType=gradientLinear&textColor=ffffff" 
+                                         alt="Avatar sebasstn_c" 
+                                         class="w-full h-full object-cover">
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Nombres de Cuenta de Publicación Compartida -->
                         <div class="flex flex-col">
-                            <div class="flex items-center gap-1">
-                                <span class="font-bold text-white text-[12px] tracking-wide">bogota_coexiste</span>
-                                <!-- Verificado Azul Oficial -->
+                            <div class="flex items-center gap-1 flex-wrap">
+                                <span class="font-bold text-white text-[11px] tracking-wide">bogota_coexiste</span>
+                                <span class="text-zinc-400 text-[10px] font-normal">y</span>
+                                <span class="font-bold text-white text-[11px] tracking-wide">sebasstn_c</span>
+                                <!-- Sello de Verificación -->
                                 <span class="bg-blue-500 text-white rounded-full w-3.5 h-3.5 flex items-center justify-center text-[7px]" title="Verificado">
                                     <i class="fa-solid fa-check"></i>
                                 </span>
@@ -223,7 +239,7 @@
                     <!-- Viewport Deslizable -->
                     <div id="carousel-viewport" class="w-full h-full overflow-x-auto snap-x snap-mandatory flex no-scrollbar scroll-smooth relative" onscroll="handleScroll()" ondblclick="triggerDoubleTapLike()">
                         
-                        <!-- SLIDE 1 (HOOK — ESTILO BOLETA DE CLÁSICO BOGOTANO CON LOGO DIMAYOR Y ESCUDOS) -->
+                        <!-- SLIDE 1 (HOOK — CON LOGO DIMAYOR, ESCUDOS DE LOS EQUIPOS Y FIRMA DEL AUTOR DE MANERA DISCRETA) -->
                         <div class="w-full h-full shrink-0 snap-start flex flex-col justify-between p-5 relative overflow-hidden bg-[#181a1d]" data-index="0">
                             <!-- Estética de Boleta Retro de Fútbol -->
                             <div class="absolute inset-x-0 top-0 h-4 bg-gradient-to-r from-santafe via-bogota to-millos opacity-80"></div>
@@ -263,10 +279,10 @@
                                 </p>
                             </div>
 
-                            <!-- Detalle troquelado de la boleta -->
+                            <!-- Detalle troquelado de la boleta (Con Autoría Integrada de forma muy discreta y heráldica) -->
                             <div class="z-10 flex justify-between items-center border-t-2 border-dashed border-white/20 pt-3">
-                                <div class="text-[9px] font-mono text-white/40 tracking-widest flex items-center gap-1.5">
-                                    <i class="fa-solid fa-barcode"></i> ADMISIÓN DE RESPETO
+                                <div class="text-[9px] font-mono text-white/45 tracking-widest flex items-center gap-1.5 uppercase">
+                                    <i class="fa-solid fa-barcode"></i> Autor: Sebastian Correa
                                 </div>
                                 <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-white">01 / 10</span>
                             </div>
@@ -657,7 +673,7 @@
                 <!-- 5. CAPTION Y METADATOS DEL POST DE INSTAGRAM -->
                 <div class="bg-black px-4 pb-3 flex flex-col text-left gap-1 select-text">
                     <div class="text-[11px] text-white/90 leading-relaxed transition-all duration-300">
-                        <span class="font-bold mr-1.5 text-white">bogota_coexiste</span>
+                        <span class="font-bold mr-1.5 text-white">bogota_coexiste y sebasstn_c</span>
                         <!-- Caption Corto -->
                         <span id="caption-short" class="text-zinc-300">¿El fútbol nos une o nos divide en redes? 📱⚽👇 Analizamos el clásico y cómo hackear el odio digital... </span>
                         <!-- Caption Completo -->
@@ -680,7 +696,9 @@
                     <button class="hover:text-zinc-300 transition-all border-2 border-white rounded-lg px-1.5 py-0.5 text-xs font-bold"><i class="fa-solid fa-plus"></i></button>
                     <button class="hover:text-zinc-300 transition-all"><i class="fa-solid fa-magnifying-glass"></i></button>
                     <button class="w-6 h-6 rounded-full overflow-hidden border border-white/50 active:scale-95 transition-all">
-                        <div class="w-full h-full bg-gradient-to-tr from-santafe to-millos flex items-center justify-center text-[8px] font-bold">B</div>
+                        <img src="https://api.dicebear.com/7.x/initials/svg?seed=Sebastian%20Correa&backgroundColor=0f52ba,d21422&backgroundType=gradientLinear&textColor=ffffff" 
+                             alt="Mi Perfil" 
+                             class="w-full h-full object-cover">
                     </button>
                 </div>
 
