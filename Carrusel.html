@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Pasión no es Odio - Carrusel Interactivo Oficial</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Anton & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;700;800&family=League+Spartan:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome para íconos deportivos y de interfaz de usuario -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        asfalto: '#141517',
+                        tiza: '#F5F5F7',
+                        santafe: '#D21422',
+                        millos: '#0F52BA',
+                        bogota: '#F3C623',
+                        cesped: '#1D3B24'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        anton: ['Anton', 'sans-serif'],
+                        spartan: ['League Spartan', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos personalizados para simular texturas urbanas y transiciones */
+        .grid-bg {
+            background-color: #0b0c0d;
+            background-image: radial-gradient(#222428 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            color: transparent;
+        }
+        /* Ocultar barra de scroll en el preview del carrusel */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Textura de Halftone */
+        .halftone-bg {
+            background-image: radial-gradient(rgba(255,255,255,0.1) 15%, transparent 16%);
+            background-size: 8px 8px;
+        }
+        
+        /* --- ANIMACIONES REALISTAS DE INSTAGRAM --- */
+        @keyframes heartPop {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.4); }
+            30% { transform: scale(0.9); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+        .animate-heart-pop {
+            animation: heartPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        @keyframes bigHeartFade {
+            0% { transform: scale(0) translate(-50%, -50%); opacity: 0; }
+            10% { transform: scale(1.2) translate(-50%, -50%); opacity: 0.9; }
+            20% { transform: scale(1) translate(-50%, -50%); opacity: 0.9; }
+            80% { transform: scale(1) translate(-50%, -50%); opacity: 0.9; }
+            100% { transform: scale(0.8) translate(-50%, -50%); opacity: 0; }
+        }
+        .animate-big-heart {
+            animation: bigHeartFade 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            transform-origin: top left;
+        }
+
+        @keyframes bookmarkBounce {
+            0% { transform: translateY(0); }
+            30% { transform: translateY(-4px); }
+            50% { transform: translateY(1px); }
+            70% { transform: translateY(-1.5px); }
+            100% { transform: translateY(0); }
+        }
+        .animate-bookmark {
+            animation: bookmarkBounce 0.45s ease-out;
+        }
+
+        @keyframes repostSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-repost {
+            animation: repostSpin 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-active-dot {
+            background-color: #F3C623 !important;
+            width: 1.2rem !important;
+        }
+    </style>
+</head>
+<body class="grid-bg text-tiza font-sans min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-bogota selection:text-asfalto">
+
+    <!-- Cabeceira / Barra Superior de Controlo da Campanha -->
+    <header class="border-b border-white/10 bg-asfalto/95 backdrop-blur sticky top-0 z-50 px-4 py-3 sm:px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-bogota text-asfalto p-2 rounded-lg font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-md">
+                    <i class="fa-solid fa-ranking-star"></i> Campaña de Convivencia
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-spartan font-extrabold tracking-tight">EXPOSICIÓN DIGITAL: LA PASIÓN NO ES ODIO</h1>
+                    <p class="text-xs text-white/60 font-medium">Etnografía del Clásico Santa Fe vs Millonarios FC • Visualización Oficial del Proyecto</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3 flex-wrap justify-center">
+                <span class="text-xs text-white/50 hidden sm:inline"><i class="fa-solid fa-gamepad text-bogota"></i> Navega con las flechas de tu teclado o desliza</span>
+                <div class="flex bg-black/40 rounded-full p-1 border border-white/10">
+                    <button onclick="changeSlide(prevIndex())" class="hover:bg-white/10 text-white p-2 rounded-full transition-all" title="Slide Anterior">
+                        <i class="fa-solid fa-chevron-left text-sm"></i>
+                    </button>
+                    <span id="slide-indicator" class="text-xs font-mono font-bold px-3 flex items-center min-w-[60px] justify-center text-bogota">
+                        01 / 10
+                    </span>
+                    <button onclick="changeSlide(nextIndex())" class="hover:bg-white/10 text-white p-2 rounded-full transition-all" title="Siguiente Slide">
+                        <i class="fa-solid fa-chevron-right text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Notificación Flotante de Acción -->
+    <div id="toast" class="fixed top-20 right-4 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-2 transform translate-y-10 opacity-0 pointer-events-none transition-all duration-300">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-text" class="text-xs font-semibold">¡Publicación guardada en tu colección!</span>
+    </div>
+
+    <!-- Contenedor Principal Centrado (Sin columna derecha) -->
+    <main class="max-w-lg mx-auto w-full p-4 sm:p-6 lg:py-10 flex-grow flex flex-col items-center justify-center gap-6">
+        
+        <!-- SIMULADOR DE IPHONE CON INSTAGRAM FEED (PROTAGONISTA ÚNICO) -->
+        <div class="relative w-[345px] sm:w-[385px] bg-black rounded-[55px] p-3 shadow-2xl border-[6px] border-zinc-800 overflow-hidden">
+            
+            <!-- Cámara Frontal ("Isla Dinámica") -->
+            <div class="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-between px-4">
+                <span class="w-1.5 h-1.5 rounded-full bg-zinc-900"></span>
+                <span class="w-1 h-1 rounded-full bg-zinc-950"></span>
+            </div>
+            
+            <!-- Pantalla del Celular -->
+            <div class="bg-black rounded-[45px] overflow-hidden aspect-[9/19] relative flex flex-col justify-between select-none">
+                
+                <!-- 1. BARRA DE ESTADO DE IOS (Idéntica a la imagen: 23:33, señal, wifi, batería amarilla) -->
+                <div class="pt-3 pb-1 px-6 flex justify-between items-center text-white text-[11px] font-semibold tracking-tight z-50 bg-black">
+                    <span class="font-sans">23:33</span>
+                    <div class="flex items-center gap-1.5">
+                        <!-- Señal Celular (4 barras) -->
+                        <div class="flex items-end gap-[1.5px] h-2.5">
+                            <span class="w-[2.5px] h-[30%] bg-white rounded-sm"></span>
+                            <span class="w-[2.5px] h-[50%] bg-white rounded-sm"></span>
+                            <span class="w-[2.5px] h-[75%] bg-white rounded-sm"></span>
+                            <span class="w-[2.5px] h-[100%] bg-white rounded-sm"></span>
+                        </div>
+                        <!-- Wi-Fi -->
+                        <i class="fa-solid fa-wifi text-[10px]"></i>
+                        <!-- Batería Amarilla (Modo de bajo consumo / Carga baja) -->
+                        <div class="w-5 h-2.5 border border-white/50 rounded-[3px] p-[1px] flex items-center relative">
+                            <div class="h-full w-[35%] bg-yellow-400 rounded-[1px]"></div>
+                            <span class="absolute -right-[2.5px] top-[2.5px] w-[1.5px] h-[3.5px] bg-white/50 rounded-r-sm"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. CABECERA DE LA APP (Instagram: Cuenta, Verificado, Audio de fondo, Opciones) -->
+                <div class="bg-black pt-1 pb-2.5 px-4 flex items-center justify-between text-xs z-30">
+                    <div class="flex items-center gap-2.5">
+                        <!-- Foto de Perfil con Anillo de Historia Activa -->
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 p-[1.5px]">
+                            <div class="w-full h-full bg-black rounded-full flex items-center justify-center border border-black overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-br from-santafe to-millos flex items-center justify-center">
+                                    <i class="fa-solid fa-shield-halved text-xs text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-1">
+                                <span class="font-bold text-white text-[12px] tracking-wide">bogota_coexiste</span>
+                                <!-- Verificado Azul Oficial -->
+                                <span class="bg-blue-500 text-white rounded-full w-3.5 h-3.5 flex items-center justify-center text-[7px]" title="Verificado">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                            </div>
+                            <span class="text-[9.5px] text-zinc-400 font-light flex items-center gap-1">
+                                <i class="fa-solid fa-music text-[8px]"></i> Bogotá Coexiste • Audio original
+                            </span>
+                        </div>
+                    </div>
+                    <button class="text-white hover:text-zinc-300 transition px-2">
+                        <i class="fa-solid fa-ellipsis text-base"></i>
+                    </button>
+                </div>
+
+                <!-- 3. VIEWPORT DEL CARROUSEL (Formato 4:5 real de Instagram) -->
+                <div class="aspect-[4/5] w-full shrink-0 relative overflow-hidden bg-zinc-950 z-20">
+                    <!-- Corazón gigante de Doble Clic (Overlay) -->
+                    <div id="big-heart-overlay" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 text-white text-7xl drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] opacity-0 pointer-events-none">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+
+                    <!-- Viewport Deslizable -->
+                    <div id="carousel-viewport" class="w-full h-full overflow-x-auto snap-x snap-mandatory flex no-scrollbar scroll-smooth relative" onscroll="handleScroll()" ondblclick="triggerDoubleTapLike()">
+                        
+                        <!-- SLIDE 1 (HOOK — ESTILO BOLETA DE CLÁSICO BOGOTANO CON LOGO DIMAYOR Y ESCUDOS) -->
+                        <div class="w-full h-full shrink-0 snap-start flex flex-col justify-between p-5 relative overflow-hidden bg-[#181a1d]" data-index="0">
+                            <!-- Estética de Boleta Retro de Fútbol -->
+                            <div class="absolute inset-x-0 top-0 h-4 bg-gradient-to-r from-santafe via-bogota to-millos opacity-80"></div>
+                            <div class="absolute -right-20 top-20 w-44 h-44 rounded-full border-4 border-dashed border-white/5 flex items-center justify-center rotate-12">
+                                <i class="fa-solid fa-ticket-simple text-white/[0.02] text-8xl"></i>
+                            </div>
+                            
+                            <div class="z-10 flex justify-between items-start mt-4">
+                                <span class="text-[10px] uppercase tracking-widest font-mono text-bogota border border-bogota/30 px-2 py-0.5 rounded bg-black/40">LOCALIDAD: TRIBUNA PAZ</span>
+                                <!-- Logotipo oficial de la Dimayor -->
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Dimayor_Colombia_logo.svg/1920px-Dimayor_Colombia_logo.svg.png" 
+                                     alt="Logo Dimayor" 
+                                     class="h-6 w-auto object-contain brightness-0 invert opacity-60" 
+                                     onerror="this.style.display='none'">
+                            </div>
+
+                            <div class="z-10 my-auto text-left flex flex-col gap-3">
+                                <!-- Emparejamiento Oficial de Escudos de Tribuna -->
+                                <div class="flex items-center gap-3 bg-black/50 py-1.5 px-3 rounded-full border border-white/10 w-fit">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Escudo_de_Independiente_Santa_Fe.png/250px-Escudo_de_Independiente_Santa_Fe.png" 
+                                         alt="Escudo de Santa Fe" 
+                                         class="h-6 w-auto object-contain">
+                                    <span class="text-[10px] font-mono text-bogota font-bold">VS</span>
+                                    <img src="https://a.espncdn.com/i/teamlogos/soccer/500/5484.png" 
+                                         alt="Escudo de Millonarios" 
+                                         class="h-6 w-auto object-contain">
+                                </div>
+
+                                <div class="text-[10px] font-mono tracking-widest uppercase text-white/50 flex items-center gap-1.5 mt-1">
+                                    <i class="fa-solid fa-circle-info text-santafe"></i> Boleto de Conciencia
+                                </div>
+                                <h2 class="text-3xl font-spartan font-black uppercase tracking-tight leading-none text-white">
+                                    ¿Apoyar a tu <span class="text-santafe border-b-4 border-santafe">equipo</span> significa <span class="text-millos border-b-4 border-millos">odiar</span> al otro?
+                                </h2>
+                                <p class="text-xs text-white/75 font-light leading-relaxed">
+                                    El Clásico Capitalino ya no se juega solo en El Campín. Analizamos cómo el folclor se distorsionó en violencia digital.
+                                </p>
+                            </div>
+
+                            <!-- Detalle troquelado de la boleta -->
+                            <div class="z-10 flex justify-between items-center border-t-2 border-dashed border-white/20 pt-3">
+                                <div class="text-[9px] font-mono text-white/40 tracking-widest flex items-center gap-1.5">
+                                    <i class="fa-solid fa-barcode"></i> ADMISIÓN DE RESPETO
+                                </div>
+                                <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-white">01 / 10</span>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 2 (DIAGNÓSTICO I — ESTILO PANTALLA DEL VAR) -->
+                        <div class="w-full h-full shrink-0 snap-start flex flex-col justify-between p-5 relative overflow-hidden bg-asfalto" data-index="1">
+                            <div class="absolute inset-0 halftone-bg opacity-20 pointer-events-none"></div>
+                            <div class="absolute top-2 right-2 border border-red-500/30 px-1.5 py-0.5 rounded flex items-center gap-1 bg-red-950/20">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                                <span class="text-[8px] font-mono text-red-400 font-bold">VAR AUDIO ROOM</span>
+                            </div>
+
+                            <div class="z-10 flex justify-between items-start">
+                                <span class="text-[10px] uppercase tracking-widest font-extrabold text-santafe"><i class="fa-solid fa-video"></i> REVISIÓN DE JUEGO</span>
+                                <span class="text-[9px] text-white/40 font-mono">ANÁLISIS DE TECLADO</span>
+                            </div>
+
+                            <div class="z-10 my-auto flex flex-col gap-2.5">
+                                <h3 class="text-lg font-spartan font-black text-white uppercase leading-tight">
+                                    El teclado como escudo: la agresión disfrazada de "folclor".
+                                </h3>
+                                <p class="text-[11px] text-white/70">
+                                    El "cargue" cruzó la línea de juego. La etnografía en redes revela amenazas de muerte camufladas como bromas de tribuna.
+                                </p>
+                                
+                                <div class="space-y-1.5 text-[9px] mt-1">
+                                    <div class="bg-black/80 p-2 rounded-lg border-l-2 border-millos relative overflow-hidden">
+                                        <div class="absolute right-0 top-0 h-full w-[1px] bg-red-500/40"></div>
+                                        <span class="text-white/40 text-[8px] font-mono">REPLAY #1 [DELD]: @hincha_azul</span>
+                                        <p class="text-white/90">"Ojalá no salgan vivos de Bogotá, gallinas de m... 💀🔪"</p>
+                                    </div>
+                                    <div class="bg-black/80 p-2 rounded-lg border-l-2 border-santafe relative overflow-hidden">
+                                        <div class="absolute right-0 top-0 h-full w-[1px] bg-red-500/40"></div>
+                                        <span class="text-white/40 text-[8px] font-mono">REPLAY #2 [DELD]: @guardia_roja</span>
+                                        <p class="text-white/90">"Hinchada silenciosa, los vamos a picar..."</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="z-10 flex justify-between items-center border-t border-white/10 pt-3">
+                                <span class="text-[9px] text-red-400 font-mono"><i class="fa-solid fa-triangle-exclamation"></i> FUERA DE JUEGO DETECTADO</span>
+                                <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-white">02 / 10</span>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 3 (DIAGNÓSTICO II — ESTILO AUTOGOL / TARJETA ROJA) -->
+                        <div class="w-full h-full shrink-0 snap-start flex flex-col justify-between p-5 relative overflow-hidden bg-zinc-900" data-index="2">
+                            <div class="absolute -right-12 -top-12 w-28 h-40 bg-santafe transform rotate-12 rounded-lg flex items-end p-4 shadow-xl border border-white/10">
+                                <span class="text-white font-anton text-2xl uppercase tracking-wider opacity-30">ROJA</span>
+                            </div>
+                            
+                            <div class="z-10 flex justify-between items-start">
+                                <span class="text-[10px] uppercase tracking-widest font-extrabold text-bogota"><i class="fa-solid fa-heart-crack"></i> AUTOGOL SOCIAL</span>
+                                <span class="text-[9px] text-white/40 font-mono">MISOGINIA</span>
+                            </div>
+
+                            <div class="z-10 my-auto flex flex-col gap-3">
+                                <h3 class="text-lg font-spartan font-black text-white uppercase leading-tight">
+                                    Misoginia en el Clásico: Un golpe a nuestra propia cancha.
+                                </h3>
+                                <p class="text-xs text-white/75 leading-relaxed">
+                                    Atacar usando lo femenino como sinónimo de "cobardía" o "debilidad" denigra la cultura futbolera. No es pasión, es agresión que debilita el juego de todos.
+                                </p>
+                                
+                                <div class="bg-black/50 p-2.5 rounded border border-white/5 flex items-center justify-between gap-2 text-[10px]">
+                                    <div class="bg-santafe/25 p-1.5 rounded text-center flex-1">
+                                        <span class="text-[8px] text-santafe font-bold uppercase block"><i class="fa-solid fa-rectangle-xmark"></i> Infracción</span>
+                                        <span class="text-[10px] text-white/80 line-through">"Sos de nenas"</span>
+                                    </div>
+                                    <div class="text-white/30"><i class="fa-solid fa-angles-right"></i></div>
+                                    <div class="bg-zinc-800 p-1.5 rounded text-center flex-1">
+                                        <span class="text-[8px] text-emerald-400 font-bold uppercase block"><i class="fa-solid fa-circle-check"></i> Expulsión</span>
+                                        <span class="text-[10px] text-white/80">Humillación por género</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="z-10 flex justify-between items-center border-t border-white/10 pt-3">
+                                <div class="flex items-center gap-1 text-[9px] text-white/50 font-mono">
+                                    <i class="fa-solid fa-gavel text-santafe"></i> EXPULSIÓN INMEDIATA DEL ODIO
+                                </div>
+                                <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-white">03 / 10</span>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 4 (DIAGNÓSTICO III — ESTILO PIZARRA TÁCTICA) -->
+                        <div class="w-full h-full shrink-0 snap-start flex flex-col justify-between p-5 relative overflow-hidden bg-cesped" data-index="3">
+                            <!-- Líneas de Cancha sobre el pizarrón verde -->
+                            <div class="absolute inset-0 border-4 border-white/10 m-2 pointer-events-none"></div>
+                            
+                            <div class="z-10 flex justify-between items-start">
+                                <span class="text-[10px] uppercase tracking-widest font-mono text-white/70 bg-black/30 px-2 py-0.5 rounded"><i class="fa-solid fa-pencil"></i> LA PIZARRA DEL DT</span>
+                                <span class="text-[9px] text-white/50 font-mono">BOGOTÁ COEXISTE</span>
+                            </div>
+
+                            <div class="z-10 my-auto flex flex-col gap-2.5">
+                                <h3 class="text-lg font-spartan font-black text-white uppercase leading-none">
+                                    Fronteras Invisibles en el Mapa.
+                                </h3>
+                                <p class="text-xs text-white/85 leading-relaxed font-light">
+                                    La agresión en redes calienta barrios reales de Bogotá. Un comentario de barra brava virtual demarca quién puede transitar seguro y quién no.
+                                </p>
+                                
+                                <!-- Dibujo táctico simulado -->
+                                <div class="h-20 bg-black/40 rounded-lg border border-white/20 p-2 relative overflow-hidden flex items-center justify-center">
+                                    <svg class="w-full h-full text-white/35" viewBox="0 0 100 60" fill="none" stroke="currentColor">
+                                        <path d="M5,10 Q25,30 45,15 Q65,10 85,45" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2,2"/>
+                                        <path d="M30,15 L60,55" stroke="#D21422" stroke-width="2" stroke-dasharray="3,3"/>
+                                        <text x="15" y="15" fill="#F3C623" font-size="10" font-weight="bold">X1</text>
+                                        <text x="75" y="45" fill="#F3C623" font-size="10" font-weight="bold">X2</text>
+                                        <circle cx="45" cy="15" r="4" fill="#0F52BA" class="animate-ping"/>
+                                        <circle cx="45" cy="15" r="2.5" fill="#0F52BA"/>
+                                    </svg>
+                                    <span class="absolute bottom-1 right-2 text-[6.5px] text-white/50 font-mono tracking-wider">ESTRATEGIA EN LOCALIDADES</span>
+                                </div>
+                            </div>
+
+                            <div class="z-10 flex justify-between items-center border-t border-white/10 pt-3">
+                                <span class="text-[9px] text-white/70 font-mono"><i class="fa-solid fa-map-pin"></i> Clásico Urbano en las Calles</span>
+                                <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-white">04 / 10</span>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 5 (ANÁLISIS I — ESTILO PRENSA DEPORTIVA RETRO) -->
+                        <div class="w-full h-full shrink-0 snap-start flex flex-col justify-between p-5 relative overflow-hidden bg-zinc-800" data-index="4">
+                            <div class="absolute inset-0 halftone-bg opacity-30"></div>
+                            
+                            <div class="z-10 flex justify-between items-start">
+                                <span class="text-[10px] uppercase tracking-widest font-extrabold text-bogota"><i class="fa-solid fa-newspaper"></i> FANZINE DE LA TRIBUNA</span>
+                                <span class="text-[9px] text-white/40 font-mono">DOPAMINA</span>
+                            </div>
+
+                                <div class="z-10 my-auto flex flex-col gap-3">
+                                    <div class="bg-black text-bogota text-[9px] px-2 py-0.5 font-mono inline-block w-fit uppercase font-bold tracking-widest border border-bogota/30">EL ALGORITMO GOLEA</div>
+                                    <h3 class="text-xl font-spartan font-black text-white uppercase leading-none">
+                                        El algoritmo te quiere furioso.
+                                    </h3>
+                                    <p class="text-xs text-white/80 leading-relaxed font-light">
+                                        La red recompensa el escándalo. Una confrontación entre un cardenal y un embajador genera más vistas. Al final del partido, el único ganador real es el servidor de la plataforma.
+                                    </p>
+                                    
+                                    <div class="bg-black/50 p-2 rounded-lg border border-white/10 flex items-center justify-around text-center text-[9px] font-mono">
+                                        <span class="text-santafe font-bold">INSULTO</span>
+                                        <i class="fa-solid fa-angles-right text-white/20"></i>
+                                        <span class="text-bogota font-bold">ALGORITMO</span>
+                                        <i class="fa-solid fa-angles-right text-white/20"></i>
+                                        <span class="text-emerald-400 font-bold">$$ GANANCIA</span>
+                                    </div>
+                                </div>
+
+                            <div class="z-10 flex justify-between items-center border-t border-white/10 pt-3">
+                                <span class="text-[9px] text-white/40 font-mono">¿ERES HINCHA O SÓLO UN CLIC?</span>
+                                <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-white">05 / 10</span>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 6 (ANÁLISIS II — ESTILO MARCADOR DEL CAMPÍN RETRO) -->
+                        <div class="w-full h-full shrink-0 snap-start flex flex-col justify-between p-5 relative overflow-hidden bg-black" data-index="5">
+                            <div class="absolute inset-0 opacity-10 bg-[linear-gradient(rgba(18,19,20,0)_95%,rgba(0,0,0,0.5)_95%),linear-gradient(90deg,rgba(18,19,20,0)_95%,rgba(0,0,0,0.5)_95%)] [background-size:4px_4px]"></div>
+                            
+                            <div class="z-10 flex justify-between items-start">
+                                <span class="text-[10px] uppercase tracking-widest font-extrabold text-santafe"><i class="fa-solid fa-desktop"></i> TABLERO ELECTRÓNICO</span>
+                                <span class="text-[9px] text-white/40 font-mono">ANÓNIMO</span>
+                            </div>
+
+                            <div class="z-10 my-auto flex flex-col gap-3">
+                                <h3 class="text-lg font-spartan font-black text-white uppercase leading-none">
+                                    Ocultos en la masa: Sin foto en el carné.
+                                </h3>
+                                <p class="text-xs text-zinc-300 leading-relaxed font-light">
+                                    Es fácil desearle lo peor al rival cuando tu perfil es un avatar genérico y no tiene rostro. Pero detrás de la camiseta hay una vida que tiene personas que lo esperan en casa.
+                                </p>
+                                
+                                <!-- Visualización Marcador LED -->
+                                <div class="bg-[#121815] p-2 rounded-lg border-2 border-zinc-800 text-center font-mono">
+                                    <span class="text-[#39ff14] text-xs font-bold uppercase tracking-widest animate-pulse">
+                                        [ UN DISCURSO SIN ROSTRO = IMPUNIDAD ]
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="z-10 flex justify-between items-center border-t border-white/10 pt-3">
+                                <span class="text-[9px] text-zinc-500 font-mono"><i class="fa-solid fa-gamepad"></i> RESPETAR LA VIDA EN EL JUEGO</span>
+                                <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-white">06 / 10</span>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 7 (PUNTO DE QUIEBRE — ESTILO "TRAPO DE TRIBUNA" ARTESANAL) -->
+                        <div class="w-full h-full shrink-0 snap-start flex flex-col justify-between p-5 relative overflow-hidden bg-[#241717]" data-index="6">
+                            <div class="absolute inset-0 z-0 opacity-25 flex">
+                                <div class="w-1/2 h-full bg-santafe relative border-r-2 border-dashed border-white/20"></div>
+                                <div class="w-1/2 h-full bg-millos"></div>
+                            </div>
+                            <div class="absolute inset-0 bg-black/40 z-0"></div>
+                            
+                            <div class="z-10 flex justify-between items-start">
+                                <span class="text-[10px] uppercase tracking-widest font-bold text-bogota"><i class="fa-solid fa-drum"></i> CARNAVAL POPULAR</span>
+                                <span class="text-[9px] text-white/40 font-mono">EL CLÁSICO CAPITAL</span>
+                            </div>
+
+                            <div class="z-10 my-auto text-left flex flex-col gap-3 relative">
+                                <h2 class="text-2xl font-anton uppercase tracking-wider leading-none text-white text-center font-bold">
+                                    Heredar la pasión,<br>no la violencia.
+                                </h2>
+                                <p class="text-xs text-white/95 font-light leading-relaxed text-center">
+                                    El barrismo popular es murga, trapos, papel picado y fiesta. Reducir toda esta cultura a insultar por una pantalla es empobrecer nuestro propio amor al equipo.
+                                </p>
+                                <div class="bg-gradient-to-r from-santafe via-bogota to-millos h-1.5 rounded"></div>
+                            </div>
+
+                            <div class="z-10 flex justify-between items-center border-t border-white/15 pt-3">
+                                    <div class="text-[9px] font-mono text-white/60 flex items-center gap-1.5 mx-auto">
+                                        <i class="fa-solid fa-flag"></i> EL TRAPO REZA: BARRISMO COEXISTENTE
+                                    </div>
+                                <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-white">07 / 10</span>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 8 (PROPUESTA I — REGLAMENTO CON MARCA DIMAYOR) -->
+                        <div class="w-full h-full shrink-0 snap-start flex flex-col justify-between p-5 relative overflow-hidden bg-[#1b1c1e]" data-index="7">
+                            <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Dimayor_Colombia_logo.svg/1920px-Dimayor_Colombia_logo.svg.png" 
+                                     alt="Dimayor Sello" 
+                                     class="w-48 h-48 object-contain">
+                            </div>
+                            
+                            <div class="z-10 flex justify-between items-start">
+                                <span class="text-[10px] uppercase tracking-widest font-extrabold text-santafe"><i class="fa-solid fa-shield-halved"></i> REGLAMENTO</span>
+                                <span class="text-[9px] text-white/40 font-mono">TÁCTICA PAZ</span>
+                            </div>
+
+                            <div class="z-10 my-auto flex flex-col gap-2.5">
+                                <h3 class="text-lg font-spartan font-black text-white uppercase leading-none">
+                                    Manual de Táctica de Juego Limpio:
+                                </h3>
+                                
+                                <div class="space-y-2 text-xs text-white/80">
+                                    <div class="flex gap-2 items-start bg-black/30 p-2 rounded border border-white/5">
+                                        <div class="bg-bogota text-asfalto font-bold w-4 h-5 rounded-sm flex items-center justify-center shrink-0 text-[10px]">1</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-[10.5px]">Desinfla la provocación</h4>
+                                            <p class="text-[9px] text-white/60 leading-tight">No caigas en la trampa del clic de odio. El algoritmo vive de tus reacciones físicas.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex gap-2 items-start bg-black/30 p-2 rounded border border-white/5">
+                                        <div class="bg-santafe text-white font-bold w-4 h-5 rounded-sm flex items-center justify-center shrink-0 text-[10px]">2</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-[10.5px]">Expulsa y reporta</h4>
+                                            <p class="text-[9px] text-white/60 leading-tight">Si detectas amenazas reales o incitación, reporta al usuario en lugar de viralizarlo.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="z-10 flex justify-between items-center border-t border-white/10 pt-3">
+                                <span class="text-[9px] text-white/50 font-mono"><i class="fa-solid fa-book"></i> REGLAMENTO BOGOTÁ COEXISTE</span>
+                                <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-white">08 / 10</span>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 9 (PROPUESTA II — CARNÉ DE AFILIADO / CARGUE INTELIGENTE) -->
+                        <div class="w-full h-full shrink-0 snap-start flex flex-col justify-between p-5 relative overflow-hidden bg-asfalto" data-index="8">
+                            <div class="z-10 flex justify-between items-start">
+                                <span class="text-[10px] uppercase tracking-widest font-extrabold text-bogota"><i class="fa-solid fa-address-card"></i> CARNÉ AFILIADO</span>
+                                <span class="text-[9px] text-white/40 font-mono">INTELECTUAL</span>
+                            </div>
+
+                            <div class="z-10 my-auto flex flex-col gap-2.5">
+                                <h3 class="text-lg font-spartan font-black text-white uppercase leading-none">
+                                    Cargue inteligente y Memes finos.
+                                </h3>
+                                
+                                <div class="space-y-2 text-xs text-white/80">
+                                    <div class="flex gap-2 items-start bg-black/30 p-2 rounded border border-white/5">
+                                        <div class="bg-bogota text-asfalto font-bold w-4 h-4 rounded-full flex items-center justify-center shrink-0 text-[10px]">3</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-[10.5px]">Sátira con cerebro</h4>
+                                            <p class="text-[9px] text-white/60 leading-tight">La burla sana es parte del folclor. Si tu meme necesita apuñalar la dignidad, no es arte, es cobardía.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex gap-2 items-start bg-black/30 p-2 rounded border border-white/5">
+                                        <div class="bg-bogota text-asfalto font-bold w-4 h-4 rounded-full flex items-center justify-center shrink-0 text-[10px]">4</div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-[10.5px]">Humaniza los posts</h4>
+                                            <p class="text-[9px] text-white/60 leading-tight">Promueve y celebra el barrismo de paz y las iniciativas colectivas que limpian la ciudad.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="z-10 flex justify-between items-center border-t border-white/10 pt-3">
+                                <span class="text-[9px] text-white/50 font-mono"><i class="fa-solid fa-user-check"></i> MIEMBRO DE LA COEXISTENCIA</span>
+                                <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-white">09 / 10</span>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 10 (CIERRE POTENTE — TABLERO DEL CAMPÍN) -->
+                        <div class="w-full h-full shrink-0 snap-start flex flex-col justify-between p-5 relative overflow-hidden bg-black text-center" data-index="9">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(243,198,35,0.06),transparent_70%)]"></div>
+                            
+                            <div class="z-10 flex justify-between items-start">
+                                <span class="text-[10px] uppercase tracking-widest font-mono text-bogota border border-bogota/30 px-2 py-0.5 rounded">FINAL DEL CLÁSICO</span>
+                                <i class="fa-solid fa-circle-play text-bogota text-sm animate-pulse"></i>
+                            </div>
+
+                            <div class="z-10 my-auto text-center flex flex-col gap-3">
+                                <!-- Marcador Final Simulado de Alta Fidelidad con Escudos Oficiales -->
+                                <div class="bg-[#121815] p-3 rounded-xl border border-zinc-800 flex justify-around items-center max-w-[260px] mx-auto w-full shadow-inner font-mono">
+                                    <!-- Independiente Santa Fe -->
+                                    <div class="flex flex-col items-center gap-1">
+                                        <div class="w-9 h-9 flex items-center justify-center p-0.5 rounded-full bg-white/5 border border-white/10">
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Escudo_de_Independiente_Santa_Fe.png/250px-Escudo_de_Independiente_Santa_Fe.png" 
+                                                 alt="Escudo Santa Fe" 
+                                                 class="w-7 h-7 object-contain"
+                                                 onerror="this.onerror=null; this.src=''; this.parentNode.innerHTML='<span class=\'text-santafe font-extrabold text-sm\'>SFE</span>'">
+                                        </div>
+                                        <span class="text-white text-[9px] font-bold">PASIÓN</span>
+                                    </div>
+                                    
+                                    <div class="text-bogota text-base font-black flex flex-col items-center">
+                                        <span>VS</span>
+                                        <span class="text-[7px] text-white/40 tracking-widest">ECOS</span>
+                                    </div>
+                                    
+                                    <!-- Millonarios FC -->
+                                    <div class="flex flex-col items-center gap-1">
+                                        <div class="w-9 h-9 flex items-center justify-center p-0.5 rounded-full bg-white/5 border border-white/10">
+                                            <img src="https://a.espncdn.com/i/teamlogos/soccer/500/5484.png" 
+                                                 alt="Escudo Millonarios" 
+                                                 class="w-7 h-7 object-contain"
+                                                 onerror="this.onerror=null; this.src=''; this.parentNode.innerHTML='<span class=\'text-millos font-extrabold text-sm\'>MFC</span>'">
+                                        </div>
+                                        <span class="text-white text-[9px] font-bold">PASIÓN</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="text-xl font-spartan font-black text-white uppercase leading-tight mt-1">
+                                    Rivalidad en la Cancha.<br>Respeto en la Red.
+                                </h3>
+                                <p class="text-[10px] text-white/80 leading-relaxed max-w-[240px] mx-auto font-light">
+                                    La pasión de tu color no puede valer más que la vida o la tranquilidad de otro. Haz que tu voz en redes promueva cultura.
+                                </p>
+                            </div>
+
+                            <div class="z-10 flex justify-between items-center border-t border-white/10 pt-3">
+                                <span class="text-[9px] text-[#39ff14] font-mono"><i class="fa-solid fa-flag-checkered"></i> JUEGO TERMINADO EN PAZ</span>
+                                <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-white">10 / 10</span>
+                            </div>
+                        </div>
+
+                    </div> <!-- Fin del Viewport de Slides -->
+                </div>
+
+                <!-- 4. BARRA DE ACCIONES E INTERACCIONES REALES -->
+                <div class="bg-black pt-3 pb-2 px-4 border-t border-white/5 flex items-center justify-between text-[13px] font-semibold text-white/95">
+                    <div class="flex items-center gap-4">
+                        <!-- Corazón (Like) -->
+                        <button id="heart-btn" onclick="toggleLike()" class="hover:text-santafe transition flex items-center gap-1.5 active:scale-90 duration-100">
+                            <i class="fa-regular fa-heart text-lg"></i>
+                            <span id="heart-count" class="text-[11px] font-medium tracking-tight">522 mil</span>
+                        </button>
+                        <!-- Comentario -->
+                        <button class="hover:text-bogota transition flex items-center gap-1.5 active:scale-90 duration-100">
+                            <i class="fa-regular fa-comment text-lg"></i>
+                            <span class="text-[11px] font-medium tracking-tight">1.250</span>
+                        </button>
+                        <!-- Repost (Compartir) -->
+                        <button id="repost-btn" onclick="toggleRepost()" class="hover:text-emerald-400 transition flex items-center gap-1.5 active:scale-90 duration-100">
+                            <i class="fa-solid fa-arrows-rotate text-lg"></i>
+                            <span id="repost-count" class="text-[11px] font-medium tracking-tight">1.610</span>
+                        </button>
+                        <!-- Mensaje Directo / Enviar -->
+                        <button class="hover:text-millos transition flex items-center gap-1.5 active:scale-90 duration-100">
+                            <i class="fa-regular fa-paper-plane text-lg"></i>
+                            <span class="text-[11px] font-medium tracking-tight">36,3 mil</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Guardar (Bookmark) -->
+                    <button id="save-btn" onclick="toggleSave()" class="hover:text-bogota text-white transition text-lg active:scale-90 duration-100">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+                </div>
+
+                <!-- 5. CAPTION Y METADATOS DEL POST DE INSTAGRAM -->
+                <div class="bg-black px-4 pb-3 flex flex-col text-left gap-1 select-text">
+                    <div class="text-[11px] text-white/90 leading-relaxed transition-all duration-300">
+                        <span class="font-bold mr-1.5 text-white">bogota_coexiste</span>
+                        <!-- Caption Corto -->
+                        <span id="caption-short" class="text-zinc-300">¿El fútbol nos une o nos divide en redes? 📱⚽👇 Analizamos el clásico y cómo hackear el odio digital... </span>
+                        <!-- Caption Completo -->
+                        <span id="caption-full" class="text-zinc-300 hidden">¿El fútbol nos une o nos divide en redes? 📱⚽👇<br><br>Analizamos el clásico Santa Fe vs Millonarios. El odio en redes no es "folclor". Conoce el algoritmo de la rabia y aplica las 4 tácticas de juego limpio. ¡La pasión por tu escudo no vale más que una vida! 🤜🤛</span>
+                        <!-- Botón de Expansión/Colapso -->
+                        <button id="caption-more-btn" onclick="toggleCaption()" class="text-zinc-500 font-semibold cursor-pointer hover:text-zinc-400 focus:outline-none ml-1 inline-block">más</button>
+                    </div>
+                    <span class="text-[9.5px] font-semibold text-zinc-500 cursor-pointer hover:text-zinc-400">88,4 mil respuestas · Votar</span>
+                    <div class="text-[9px] text-zinc-500 font-medium uppercase tracking-wide flex items-center gap-2">
+                        <span>Hace 2 días</span>
+                        <span>•</span>
+                        <span class="hover:text-zinc-400 cursor-pointer">Ver traducción</span>
+                    </div>
+                </div>
+
+                <!-- 6. BARRA DE NAVEGACIÓN INFERIOR DE INSTAGRAM -->
+                <div class="bg-black pt-1 pb-3 px-6 border-t border-zinc-900/60 flex items-center justify-between text-white/90 text-lg z-30">
+                    <button class="hover:text-zinc-300 transition-all text-xl"><i class="fa-solid fa-house"></i></button>
+                    <button class="hover:text-zinc-300 transition-all"><i class="fa-solid fa-clapperboard"></i></button>
+                    <button class="hover:text-zinc-300 transition-all border-2 border-white rounded-lg px-1.5 py-0.5 text-xs font-bold"><i class="fa-solid fa-plus"></i></button>
+                    <button class="hover:text-zinc-300 transition-all"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <button class="w-6 h-6 rounded-full overflow-hidden border border-white/50 active:scale-95 transition-all">
+                        <div class="w-full h-full bg-gradient-to-tr from-santafe to-millos flex items-center justify-center text-[8px] font-bold">B</div>
+                    </button>
+                </div>
+
+                <!-- 7. HOME INDICATOR DE IOS -->
+                <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/45 rounded-full z-50 pointer-events-none"></div>
+
+            </div>
+        </div>
+
+        <!-- Puntos Indicadores de Carrusel -->
+        <div id="carousel-dots" class="flex gap-1.5 justify-center">
+            <span onclick="changeSlide(0)" class="w-1.5 h-1.5 rounded-full bg-white/30 cursor-pointer hover:bg-white/60 transition-all custom-active-dot"></span>
+            <span onclick="changeSlide(1)" class="w-1.5 h-1.5 rounded-full bg-white/30 cursor-pointer hover:bg-white/60 transition-all"></span>
+            <span onclick="changeSlide(2)" class="w-1.5 h-1.5 rounded-full bg-white/30 cursor-pointer hover:bg-white/60 transition-all"></span>
+            <span onclick="changeSlide(3)" class="w-1.5 h-1.5 rounded-full bg-white/30 cursor-pointer hover:bg-white/60 transition-all"></span>
+            <span onclick="changeSlide(4)" class="w-1.5 h-1.5 rounded-full bg-white/30 cursor-pointer hover:bg-white/60 transition-all"></span>
+            <span onclick="changeSlide(5)" class="w-1.5 h-1.5 rounded-full bg-white/30 cursor-pointer hover:bg-white/60 transition-all"></span>
+            <span onclick="changeSlide(6)" class="w-1.5 h-1.5 rounded-full bg-white/30 cursor-pointer hover:bg-white/60 transition-all"></span>
+            <span onclick="changeSlide(7)" class="w-1.5 h-1.5 rounded-full bg-white/30 cursor-pointer hover:bg-white/60 transition-all"></span>
+            <span onclick="changeSlide(8)" class="w-1.5 h-1.5 rounded-full bg-white/30 cursor-pointer hover:bg-white/60 transition-all"></span>
+            <span onclick="changeSlide(9)" class="w-1.5 h-1.5 rounded-full bg-white/30 cursor-pointer hover:bg-white/60 transition-all"></span>
+        </div>
+
+        <!-- PANEL DE NAVEGACIÓN DE DIAPOSITIVAS EN ESPAÑOL (Único elemento de control mantenido) -->
+        <div class="w-full bg-asfalto border border-white/10 rounded-2xl p-5 shadow-xl">
+            <span class="text-xs uppercase font-bold tracking-widest text-bogota block mb-3 text-center">
+                <i class="fa-solid fa-compass animate-spin-slow"></i> Navegación Rápida del Carrusel
+            </span>
+            <div class="grid grid-cols-5 sm:grid-cols-10 gap-2">
+                <button onclick="changeSlide(0)" class="slide-nav-btn bg-bogota text-asfalto font-bold text-xs py-2 rounded-lg transition-all border border-transparent shadow hover:scale-105 active:scale-95">01</button>
+                <button onclick="changeSlide(1)" class="slide-nav-btn bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-2 rounded-lg transition-all border border-transparent active:scale-95">02</button>
+                <button onclick="changeSlide(2)" class="slide-nav-btn bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-2 rounded-lg transition-all border border-transparent active:scale-95">03</button>
+                <button onclick="changeSlide(3)" class="slide-nav-btn bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-2 rounded-lg transition-all border border-transparent active:scale-95">04</button>
+                <button onclick="changeSlide(4)" class="slide-nav-btn bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-2 rounded-lg transition-all border border-transparent active:scale-95">05</button>
+                <button onclick="changeSlide(5)" class="slide-nav-btn bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-2 rounded-lg transition-all border border-transparent active:scale-95">06</button>
+                <button onclick="changeSlide(6)" class="slide-nav-btn bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-2 rounded-lg transition-all border border-transparent active:scale-95">07</button>
+                <button onclick="changeSlide(7)" class="slide-nav-btn bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-2 rounded-lg transition-all border border-transparent active:scale-95">08</button>
+                <button onclick="changeSlide(8)" class="slide-nav-btn bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-2 rounded-lg transition-all border border-transparent active:scale-95">09</button>
+                <button onclick="changeSlide(9)" class="slide-nav-btn bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-2 rounded-lg transition-all border border-transparent active:scale-95">10</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- PROGRAMACIÓN / MOTORES DE SINCRONIZACIÓN E INTERACCIÓN -->
+    <script>
+        const totalSlides = 10;
+        let activeIndex = 0;
+        const viewport = document.getElementById('carousel-viewport');
+        const dots = document.getElementById('carousel-dots').children;
+
+        // Estados de Interacciones Nativas
+        let liked = false;
+        let saved = false;
+        let reposted = false;
+        let captionExpanded = false;
+
+        // 1. ANIMACIÓN DEL LIKE (CORAZÓN)
+        function toggleLike() {
+            liked = !liked;
+            const btn = document.getElementById('heart-btn');
+            const icon = btn.querySelector('i');
+            const countSpan = document.getElementById('heart-count');
+            
+            if (liked) {
+                icon.className = "fa-solid fa-heart text-red-500 animate-heart-pop";
+                countSpan.innerText = "523 mil";
+                countSpan.classList.add('text-red-500');
+            } else {
+                icon.className = "fa-regular fa-heart";
+                countSpan.innerText = "522 mil";
+                countSpan.classList.remove('text-red-500');
+            }
+        }
+
+        // DOBLE CLIC (DOUBLE TAP LIKE)
+        function triggerDoubleTapLike() {
+            const heartOverlay = document.getElementById('big-heart-overlay');
+            
+            heartOverlay.classList.remove('animate-big-heart');
+            void heartOverlay.offsetWidth; // Truco de reflow para reiniciar CSS
+            heartOverlay.classList.add('animate-big-heart');
+
+            if (!liked) {
+                toggleLike();
+            }
+        }
+
+        // 2. ANIMACIÓN DE COMPARTIR / REPOST
+        function toggleRepost() {
+            reposted = !reposted;
+            const btn = document.getElementById('repost-btn');
+            const icon = btn.querySelector('i');
+            const countSpan = document.getElementById('repost-count');
+            
+            icon.classList.add('animate-repost');
+            setTimeout(() => {
+                icon.classList.remove('animate-repost');
+            }, 650);
+
+            if (reposted) {
+                icon.classList.add('text-emerald-500');
+                countSpan.innerText = "1.611";
+                countSpan.classList.add('text-emerald-500');
+            } else {
+                icon.classList.remove('text-emerald-500');
+                countSpan.innerText = "1.610";
+                countSpan.classList.remove('text-emerald-500');
+            }
+        }
+
+        // 3. ANIMACIÓN DE GUARDAR
+        function toggleSave() {
+            saved = !saved;
+            const btn = document.getElementById('save-btn');
+            const icon = btn.querySelector('i');
+            
+            icon.classList.add('animate-bookmark');
+            setTimeout(() => {
+                icon.classList.remove('animate-bookmark');
+            }, 450);
+
+            if (saved) {
+                icon.className = "fa-solid fa-bookmark text-white";
+                showToast("¡Publicación guardada!");
+            } else {
+                icon.className = "fa-regular fa-bookmark";
+            }
+        }
+
+        // 4. LEYENDA EXPANDIBLE (MÁS / MENOS)
+        function toggleCaption() {
+            captionExpanded = !captionExpanded;
+            const shortSpan = document.getElementById('caption-short');
+            const fullSpan = document.getElementById('caption-full');
+            const moreBtn = document.getElementById('caption-more-btn');
+            
+            if (captionExpanded) {
+                shortSpan.classList.add('hidden');
+                fullSpan.classList.remove('hidden');
+                moreBtn.innerText = "menos";
+            } else {
+                shortSpan.classList.remove('hidden');
+                fullSpan.classList.add('hidden');
+                moreBtn.innerText = "más";
+            }
+        }
+
+        // Alterar el slide visible
+        function changeSlide(index) {
+            if (index < 0 || index >= totalSlides) return;
+            activeIndex = index;
+            
+            const slideWidth = viewport.clientWidth;
+            viewport.scrollTo({
+                left: slideWidth * index,
+                behavior: 'smooth'
+            });
+
+            updateUI();
+        }
+
+        // Evento de scroll dinámico
+        function handleScroll() {
+            const slideWidth = viewport.clientWidth;
+            const computedIndex = Math.round(viewport.scrollLeft / slideWidth);
+            if (computedIndex !== activeIndex && computedIndex >= 0 && computedIndex < totalSlides) {
+                activeIndex = computedIndex;
+                updateUI();
+            }
+        }
+
+        function prevIndex() {
+            return (activeIndex - 1 + totalSlides) % totalSlides;
+        }
+
+        function nextIndex() {
+            return (activeIndex + 1) % totalSlides;
+        }
+
+        // Actualizar interfaz y sincronizar botones con seguridad de nulos (Null Safe)
+        function updateUI() {
+            const indicator = document.getElementById('slide-indicator');
+            if (indicator) {
+                indicator.innerText = `${(activeIndex + 1).toString().padStart(2, '0')} / ${totalSlides.toString().padStart(2, '0')}`;
+            }
+            
+            for (let i = 0; i < dots.length; i++) {
+                if (dots[i]) {
+                    if (i === activeIndex) {
+                        dots[i].classList.add('custom-active-dot');
+                    } else {
+                        dots[i].classList.remove('custom-active-dot');
+                    }
+                }
+            }
+
+            const quickButtons = document.getElementsByClassName('slide-nav-btn');
+            for (let i = 0; i < quickButtons.length; i++) {
+                if (quickButtons[i]) {
+                    if (i === activeIndex) {
+                        quickButtons[i].className = "slide-nav-btn bg-bogota text-asfalto font-bold text-xs py-2 rounded-lg transition-all border border-transparent shadow hover:scale-105 active:scale-95";
+                    } else {
+                        quickButtons[i].className = "slide-nav-btn bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-2 rounded-lg transition-all border border-transparent active:scale-95";
+                    }
+                }
+            }
+        }
+
+        // Notificación flotante rápida
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            if (!toast || !toastText) return;
+            
+            toastText.innerText = message;
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+            }, 3000);
+        }
+
+        // Listeners de teclas de dirección (izquierda / derecha)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                changeSlide(nextIndex());
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(prevIndex());
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            changeSlide(activeIndex);
+        });
+
+        window.onload = function() {
+            updateUI();
+        }
+    </script>
+</body>
+</html>
