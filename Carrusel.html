@@ -112,7 +112,7 @@
 </head>
 <body class="grid-bg text-tiza font-sans min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-bogota selection:text-asfalto">
 
-    <!-- Cabeceira / Barra Superior de Controlo da Campanha -->
+    <!-- Cabecera / Barra Superior de Control de la Campaña -->
     <header class="border-b border-white/10 bg-asfalto/95 backdrop-blur relative px-4 py-3 sm:px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
@@ -149,7 +149,7 @@
         <span id="toast-text" class="text-xs font-semibold">¡Publicación guardada en tu colección!</span>
     </div>
 
-    <!-- Contenedor Principal Centrado -->
+    <!-- Contenedor Principal Centrado (Sin columna derecha) -->
     <main class="max-w-lg mx-auto w-full p-4 sm:p-6 lg:py-10 flex-grow flex flex-col items-center justify-center gap-6">
         
         <!-- SIMULADOR DE IPHONE CON INSTAGRAM FEED (PROTAGONISTA ÚNICO) -->
@@ -164,7 +164,7 @@
             <!-- Pantalla del Celular -->
             <div class="bg-black rounded-[45px] overflow-hidden aspect-[9/19] relative flex flex-col justify-between select-none">
                 
-                <!-- 1. BARRA DE ESTADO DE IOS -->
+                <!-- 1. BARRA DE ESTADO DE IOS (Idéntica a la imagen: 23:33, señal, wifi, batería amarilla) -->
                 <div class="pt-3 pb-1 px-6 flex justify-between items-center text-white text-[11px] font-semibold tracking-tight z-50 bg-black">
                     <span class="font-sans">23:33</span>
                     <div class="flex items-center gap-1.5">
@@ -185,7 +185,7 @@
                     </div>
                 </div>
 
-                <!-- 2. CABECERA DE LA APP - DISEÑO DE PUBLICACIÓN COMPARTIDA (Con foto de perfil personalizada para sebasstn_c) -->
+                <!-- 2. CABECERA DE LA APP - DISEÑO DE PUBLICACIÓN COMPARTIDA (Con enlace al perfil real de sebasstn_c) -->
                 <div class="bg-black pt-1 pb-2.5 px-4 flex items-center justify-between text-xs z-30">
                     <div class="flex items-center gap-3.5">
                         <!-- Foto de Perfil Compartida (Solapamiento real de Instagram) -->
@@ -198,22 +198,33 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Segundo Avatar: sebasstn_c (Con la imagen de avatar "SC" en gradiente deportivo) -->
-                            <div class="absolute left-3.5 w-6 h-6 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 p-[1px] z-10">
+                            <!-- Segundo Avatar: sebasstn_c (Con la imagen de avatar "SC" y enlace real) -->
+                            <a href="https://www.instagram.com/sebasstn_c?igsh=OHprMW94Z3k5OGZn&utm_source=qr" 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               class="absolute left-3.5 w-6 h-6 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 p-[1px] z-10 hover:scale-110 active:scale-95 transition-all" 
+                               title="Ver perfil de Sebastian Correa">
                                 <div class="w-full h-full bg-black rounded-full flex items-center justify-center overflow-hidden">
                                     <img src="https://api.dicebear.com/7.x/initials/svg?seed=Sebastian%20Correa&backgroundColor=0f52ba,d21422&backgroundType=gradientLinear&textColor=ffffff" 
                                          alt="Avatar sebasstn_c" 
                                          class="w-full h-full object-cover">
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         
                         <!-- Nombres de Cuenta de Publicación Compartida -->
                         <div class="flex flex-col">
-                            <div class="flex items-center gap-1 flex-wrap">
-                                <span class="font-bold text-white text-[11px] tracking-wide">bogota_coexiste</span>
+                            <div class="flex items-center gap-1 flex-wrap text-white">
+                                <span class="font-bold text-[11px] tracking-wide">bogota_coexiste</span>
                                 <span class="text-zinc-400 text-[10px] font-normal">y</span>
-                                <span class="font-bold text-white text-[11px] tracking-wide">sebasstn_c</span>
+                                <!-- Enlace activo al usuario real -->
+                                <a href="https://www.instagram.com/sebasstn_c?igsh=OHprMW94Z3k5OGZn&utm_source=qr" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="font-bold text-[11px] tracking-wide hover:underline cursor-pointer transition-all" 
+                                   title="Ver perfil de Sebastian Correa">
+                                   sebasstn_c
+                                </a>
                                 <!-- Sello de Verificación -->
                                 <span class="bg-blue-500 text-white rounded-full w-3.5 h-3.5 flex items-center justify-center text-[7px]" title="Verificado">
                                     <i class="fa-solid fa-check"></i>
@@ -673,7 +684,9 @@
                 <!-- 5. CAPTION Y METADATOS DEL POST DE INSTAGRAM -->
                 <div class="bg-black px-4 pb-3 flex flex-col text-left gap-1 select-text">
                     <div class="text-[11px] text-white/90 leading-relaxed transition-all duration-300">
-                        <span class="font-bold mr-1.5 text-white">bogota_coexiste y sebasstn_c</span>
+                        <span class="font-bold mr-1.5 text-white">
+                            bogota_coexiste y <a href="https://www.instagram.com/sebasstn_c?igsh=OHprMW94Z3k5OGZn&utm_source=qr" target="_blank" rel="noopener noreferrer" class="hover:underline cursor-pointer" title="Ver perfil de Sebastian Correa">sebasstn_c</a>
+                        </span>
                         <!-- Caption Corto -->
                         <span id="caption-short" class="text-zinc-300">¿El fútbol nos une o nos divide en redes? 📱⚽👇 Analizamos el clásico y cómo hackear el odio digital... </span>
                         <!-- Caption Completo -->
@@ -695,11 +708,15 @@
                     <button class="hover:text-zinc-300 transition-all"><i class="fa-solid fa-clapperboard"></i></button>
                     <button class="hover:text-zinc-300 transition-all border-2 border-white rounded-lg px-1.5 py-0.5 text-xs font-bold"><i class="fa-solid fa-plus"></i></button>
                     <button class="hover:text-zinc-300 transition-all"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <button class="w-6 h-6 rounded-full overflow-hidden border border-white/50 active:scale-95 transition-all">
+                    <a href="https://www.instagram.com/sebasstn_c?igsh=OHprMW94Z3k5OGZn&utm_source=qr" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="w-6 h-6 rounded-full overflow-hidden border border-white/50 active:scale-95 transition-all block"
+                       title="Ver perfil de Sebastian Correa">
                         <img src="https://api.dicebear.com/7.x/initials/svg?seed=Sebastian%20Correa&backgroundColor=0f52ba,d21422&backgroundType=gradientLinear&textColor=ffffff" 
                              alt="Mi Perfil" 
                              class="w-full h-full object-cover">
-                    </button>
+                    </a>
                 </div>
 
                 <!-- 7. HOME INDICATOR DE IOS -->
@@ -871,6 +888,7 @@
             }
         }
 
+        // Siguiente y anterior index cíclico
         function prevIndex() {
             return (activeIndex - 1 + totalSlides) % totalSlides;
         }
